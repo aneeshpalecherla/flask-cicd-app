@@ -1,7 +1,13 @@
-# Byte-compiled / optimized / DLL files
+ Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
+# Terraform
+.terraform/
+*.tfplan
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
 
 # C extensions
 *.so
