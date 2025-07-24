@@ -28,7 +28,7 @@ resource "aws_security_group" "allow_ssh_http" {
 }
 
 resource "aws_instance" "flask_app" {
-  ami                    = "ami-0c02fb55956c7d316" # Ubuntu 22.04 LTS AMI
+  ami                    = "ami-0cd582ee8a22cc7be" # Ubuntu 22.04 LTS AMI
   instance_type          = "t2.micro"
   key_name               = "sunny69"
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
@@ -45,7 +45,6 @@ systemctl start docker
 systemctl enable docker
 EOF
 }
-output "ec2_public_ip" {
-  value = aws_instance.flask_app.public_ip
+output "public_ip" {
+  value = aws_instance.my_instance.public_ip
 }
-
