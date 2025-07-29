@@ -38,9 +38,11 @@ pipeline {
         }
 
         stage('Deploy Flask App via Docker') {
-    steps {
-        bat 'scp -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no -r * ec2-user@54.165.140.189:/home/ec2-user/app'
-        bat 'ssh -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@54.165.140.189 "cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app"'
+            steps {
+                // Use full path to your pem file here
+                bat 'scp -i C:\\path\\to\\sunny69.pem -o StrictHostKeyChecking=no -r * ec2-user@54.165.140.189:/home/ec2-user/app'
+                bat 'ssh -i C:\\path\\to\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@54.165.140.189 "cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app"'
+            }
+        }
     }
 }
-
