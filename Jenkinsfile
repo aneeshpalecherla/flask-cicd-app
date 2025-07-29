@@ -51,22 +51,6 @@ pipeline {
 
         stage('Deploy Flask App via Docker') {
             steps {
-                // Clean old app files
                 bat "ssh -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@${env.EC2_IP} \"rm -rf /home/ec2-user/app/*\""
-                
-                // Copy new app files
-                bat "scp -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no -r * ec2-user@${env.EC2_IP}:/home/ec2-user/app"
-                
-                // Stop and remove old container if exists
-                bat "ssh -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@${env.EC2_IP} \"docker stop flask-app || true && docker rm flask-app || true\""
-                
-                // Build and run new container
-                bat "ssh -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@${env.EC2_IP} \"cd /home/ec2-user/app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app\""
-            }
-        }
-    }
-}
-
-        }
-    }
-}
+                bat "scp -i C:\\Users\\Aneesh\\flask-cicd-app\\terraform\\sunny69.pem -o StrictHostKeyChecking=no -r . ec2-user@${env.EC2_IP}:/home/ec2-user/app"
+                ba
