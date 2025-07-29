@@ -27,15 +27,16 @@ resource "aws_security_group" "allow_ssh_http" {
   }
 }
 resource "aws_instance" "flask_app" {
-  ami           = "ami-002c18240e702b6cf" # <<< UPDATED AMI ID
-  instance_type = "t2.micro"
+  ami           = "ami-002c18240e702b6cf" # Your chosen AMI (ensure it's ARM64)
+  instance_type = "t4g.micro"            # <<< CHANGE THIS LINE to t4g.micro
   key_name      = "sunny69"
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
 
   tags = {
     Name = "FlaskAppServer"
   }
-user_data = <<EOF
+
+  user_data = <<EOF
 #!/bin/bash
 apt update -y
 apt install docker.io -y
