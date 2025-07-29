@@ -28,7 +28,7 @@ resource "aws_security_group" "allow_ssh_http" {
 }
 
 resource "aws_instance" "flask_app" {
-  ami           = "ami-002c18240e702b6cf" # x86_64 architecture
+  ami           = "ami-0c02fb55956c7d316" # x86_64 architecture
   instance_type = "t2.micro"              # ✅ Compatible instance type
 
   key_name      = "sunny69"
