@@ -16,7 +16,7 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 dir('terraform') {
-                    sh 'terraform init'
+                    bat 'terraform init'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
         stage('Terraform Plan') {
             steps {
                 dir('terraform') {
-                    sh 'terraform plan'
+                    bat 'terraform plan'
                 }
             }
         }
@@ -32,15 +32,16 @@ pipeline {
         stage('Terraform Apply') {
             steps {
                 dir('terraform') {
-                    sh 'terraform apply -auto-approve'
+                    bat 'terraform apply -auto-approve'
                 }
             }
         }
 
         stage('Deploy Flask App via Docker') {
             steps {
-                sh 'scp -i sunny69.pem -o StrictHostKeyChecking=no -r * ec2-user@<EC2_PUBLIC_IP>:/home/ec2-user/app'
-                sh 'ssh -i sunny69.pem -o StrictHostKeyChecking=no ec2-user@<EC2_PUBLIC_IP> "cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app"'
+                // Use full path to your pem file here
+                bat 'scp -i C:\\path\\to\\sunny69.pem -o StrictHostKeyChecking=no -r * ec2-user@54.165.140.189:/home/ec2-user/app'
+                bat 'ssh -i C:\\path\\to\\sunny69.pem -o StrictHostKeyChecking=no ec2-user@54.165.140.189 "cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app"'
             }
         }
     }
