@@ -48,9 +48,10 @@ pipeline {
             steps {
                 // Use the correct path to your pem file within the Jenkins workspace
                 // and use the dynamic public_ip
-                bat "scp -i \"${workspace}\\terraform\\sunny69.pem\" -o StrictHostKeyChecking=no -r * ec2-user@${env.public_ip}:/home/ec2-user/app"
-                bat "ssh -i \"${workspace}\\terraform\\sunny69.pem\" -o StrictHostKeyChecking=no ec2-user@${env.public_ip} \"cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app\""
+                bat scp -i "C:\ProgramData\Jenkins\.jenkins\workspace\flask-cicd-pipeline\terraform\sunny69.pem"  -o StrictHostKeyChecking=no -r * ec2-user@${env.public_ip}:/home/ec2-user/app"
+                bat "ssh -i "C:\ProgramData\Jenkins\.jenkins\workspace\flask-cicd-pipeline\terraform\sunny69.pem"  -o StrictHostKeyChecking=no ec2-user@${env.public_ip} \"cd app && docker build -t flask-app . && docker run -d -p 5000:5000 flask-app\""
             }
         }
     }
 }
+scp -i "C:\ProgramData\Jenkins\.jenkins\workspace\flask-cicd-pipeline\terraform\sunny69.pem" -o StrictHostKeyChecking=no -r * ec2-user@YOUR_EC2_IP_OR_HOSTNAME:/home/ec2-user/app
