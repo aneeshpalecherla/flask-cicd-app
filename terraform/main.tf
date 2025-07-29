@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "allow_ssh_http" {
-  name = "allow_ssh_http_terraform"
+  name = "flask-app-sg-v4" # <<< CHANGE THIS LINE to a new, unique name
 
   ingress {
     from_port   = 22
