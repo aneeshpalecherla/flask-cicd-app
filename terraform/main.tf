@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "allow_ssh_http" {
-  name = "flask-app-sg-v4" # <<< CHANGE THIS LINE to a new, unique name
+  name = "flask-app-sg-v4"
 
   ingress {
     from_port   = 22
@@ -26,9 +26,10 @@ resource "aws_security_group" "allow_ssh_http" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 resource "aws_instance" "flask_app" {
-  ami           = "ami-002c18240e702b6cf" # Your chosen AMI (ensure it's ARM64)
-  instance_type = "t2.micro"
+  ami           = "ami-002c18240e702b6cf" # x86_64 architecture
+  instance_type = "t2.micro"              # ✅ Compatible instance type
 
   key_name      = "sunny69"
   vpc_security_group_ids = [aws_security_group.allow_ssh_http.id]
@@ -47,5 +48,5 @@ EOF
 }
 
 output "public_ip" {
-  value = aws_instance.flask_app.public_ip  # THIS LINE IS CORRECTED
+  value = aws_instance.flask_app.public_ip
 }
